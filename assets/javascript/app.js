@@ -1,6 +1,16 @@
 
+var config = {
+  apiKey: "AIzaSyCqSVZnqCQiokv-IIsxpqswagNgUHTrn_s",
+  authDomain: "train-schedule-5cd4a.firebaseapp.com",
+  databaseURL: "https://train-schedule-5cd4a.firebaseio.com",
+  projectId: "train-schedule-5cd4a",
+  storageBucket: "train-schedule-5cd4a.appspot.com",
+  messagingSenderId: "746152774297"
+};
+firebase.initializeApp(config);
 
 var database = firebase.database();
+
 $("#add-train-btn").on("click", function(event) {
     event.preventDefault();
 
@@ -27,10 +37,9 @@ database.ref().on("child_added", function(snapshot) {
     console.log(snap.firstTrain);
     console.log(snap.freq);
 
-    var remainder = moment().diff(moment.unix(snap.firstTrain), "minutes") % snap.freq;
-    var minRemaining = trainFrequency - remainder;
-
-    var nextTrain = moment().add(minRemaining, "m").format("hh:mm A");
+    
+    var minRemaining = "N/A"
+    var nextTrain = "N/A" 
 
     var newRow = $("<tr>");
     var newName = $("<td>" + snap.name + "</td>");
