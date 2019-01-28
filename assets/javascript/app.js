@@ -37,9 +37,23 @@ database.ref().on("child_added", function(snapshot) {
     console.log(snap.firstTrain);
     console.log(snap.freq);
 
-    
-    var minRemaining = "N/A"
-    var nextTrain = "N/A" 
+    var firstTrainConverted = moment(snap.firstTrain, "HH:mm").subtract(1, "years");
+    console.log(firstTrainConverted);
+
+    var currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
+
+    var difference = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + difference);
+
+    var remainder = difference % snap.freq;
+    console.log(remainder);
+
+    var minRemaining = snap.freq - remainder;
+    console.log("MINUTES TILL TRAIN: " + minRemaing);
+
+    var nextTrain = moment().add(minRemaining, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
 
     var newRow = $("<tr>");
     var newName = $("<td>" + snap.name + "</td>");
